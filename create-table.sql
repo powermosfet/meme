@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS event (
+    id SERIAL PRIMARY KEY,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    category VARCHAR,
+    event VARCHAR,
+    payload JSONB
+);
