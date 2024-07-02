@@ -76,6 +76,7 @@ executable meme
       , network-uri
       , bytestring
       , unix
+      , postgresql-simple
 
     mixins:
         base hiding (Prelude)
