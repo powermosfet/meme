@@ -4,11 +4,11 @@ import Network.URI (parseURI)
 import Network.MQTT.Client
 import qualified Config
 import Database.PostgreSQL.Simple
-import Data.Time.Clock
+import Database.PostgreSQL.Simple.Time
 
 data Event = Event
   { eventId :: Int
-  , eventTimestamp :: UTCTime
+  , eventTimestamp :: UTCTimestamp
   , eventCategory :: Text
   , eventName :: Text
   , eventPayload :: Text
