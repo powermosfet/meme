@@ -8,7 +8,7 @@ import Database.PostgreSQL.Simple.Time
 
 data Event = Event
   { eventId :: Int
-  , eventTimestamp :: UTCTimestamp
+  , eventTimestamp :: LocalTimestamp
   , eventCategory :: Text
   , eventName :: Text
   , eventPayload :: Text
