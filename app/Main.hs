@@ -4,15 +4,25 @@ import Network.URI (parseURI)
 import Network.MQTT.Client
 import qualified Config
 import Database.PostgreSQL.Simple
+import Data.Time.Clock
+
+data Event = Event
+  { eventId :: Int
+  , eventTimestamp :: UTCTime
+  , eventCategory :: Text
+  , eventName :: Text
+  , eventPayload :: Text
+  }
+  deriving (Show)
 
 main :: IO ()
 main = do
   config <- Config.create
   mc <- connectURI mqttConfig{_msgCB=SimpleCallback msgReceived} (Config.mqttUri config)
   conn <- connectPostgreSQL ""
-  [Only (eventId::Int, _, group::Text, event::Text, _)] <- query_ conn "SELECT * FROM event LIMIT 1"
-  print (eventId, group, event)
-  publish mc "tmp/topic" "hello!" False
+  [(rowId, rowTimestamp, rowCategory, rowEvent, rowPayload)] <- query_ conn "SELECT * FROM event LIMIT 1"
+  let event = Event rowId rowTimestamp rowCategory rowEvent rowPayload
+  print event
   print =<< subscribe mc [("event/+/+", subOptions)] []
   waitForClient mc   -- wait for the the client to disconnect
 
