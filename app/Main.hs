@@ -5,13 +5,14 @@ import Network.MQTT.Client
 import qualified Config
 import Database.PostgreSQL.Simple
 import Database.PostgreSQL.Simple.Time
+import Data.Aeson
 
 data Event = Event
   { eventId :: Int
   , eventTimestamp :: LocalTimestamp
   , eventCategory :: Text
   , eventName :: Text
-  , eventPayload :: Text
+  , eventPayload :: Value 
   }
   deriving (Show)
 

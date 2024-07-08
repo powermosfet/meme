@@ -78,6 +78,7 @@ executable meme
       , unix
       , postgresql-simple
       , time
+      , aeson
 
     mixins:
         base hiding (Prelude)
