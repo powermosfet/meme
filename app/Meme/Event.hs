@@ -4,9 +4,9 @@ import Data.Aeson (Value, decode)
 import qualified Data.ByteString.Lazy
 
 data Event = Event
-  { category :: Text
-  , event :: Text
-  , payload :: Value 
+  { category :: Text,
+    event :: Text,
+    payload :: Value
   }
   deriving (Show)
 
