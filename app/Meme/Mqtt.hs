@@ -22,7 +22,14 @@ handleMessage db _ topic message _ =
         message
           & Meme.Event.decodePayload
           & fmap (Meme.Event.Event category eventName)
-   in forM_ maybeEvent (Meme.Database.insert db)
+   in case maybeEvent of
+        Just event -> do
+          Meme.Database.insert db event
+          putText "Recorded event: "
+          print event
+        Nothing -> do
+          putText "Error: "
+          print (topic, message)
 
 splitTopic :: Network.MQTT.Topic.Topic -> (Text, Text)
 splitTopic topic =
