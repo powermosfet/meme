@@ -27,9 +27,11 @@ handleMessage db _ topic message _ =
           Meme.Database.insert db event
           putText "Recorded event: "
           print event
+          hFlush stdout
         Nothing -> do
           putText "Error: "
           print (topic, message)
+          hFlush stdout
 
 splitTopic :: Network.MQTT.Topic.Topic -> (Text, Text)
 splitTopic topic =
